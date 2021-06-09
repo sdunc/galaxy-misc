@@ -3,10 +3,11 @@
         
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        emmax-kin-intel64 -v -d 10 '$SNPLD02' > SNPLD0.2.aBN.kinf
+       $__tool_directory__/emmax-kin-intel64 -v -d 10 '$SNPLD02' > SNPLD0.2.aBN.kinf
     ]]></command>
     <inputs>
-        <param type="data" name="SNPLD02" format="tped" label="Genotype file containing the SNPs filtered by LD in tped format (output from the Step 2)" />
+        <param type="data" name="SNPLD02" label="Genotype file containing the SNPs filtered by LD in tped format (output from the Step 2)" />
+	<param type="data" name="tfam" label="Tfam data (output from step 2)" />
     </inputs>
     <outputs>
         <data label="GWASwithEMMAX_Step3: Kinship matrix" name="SNPLD0.2.aBN.kinf" from_work_dir="SNPLD0.2.aBN.kinf" />

@@ -3,10 +3,11 @@
         <requirement type="package" version="1.90.beta.4.4">plink</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-        plink --file '$SNP' --recode12 --output-missing-genotype 0 --transpose --out SNP
+        plink --ped '$SNP' --map '$MAP' --recode 12 --output-missing-genotype 0 --transpose --out SNP
     ]]></command>
     <inputs>
         <param type="data" name="SNP" label="Genotype file containing the SNPs in .ped format (output from the Step 1)" />
+	<param type="data" name="MAP" label="Genotype .map file (output from step 1)" /> 
     </inputs>
     <outputs>
         <data label="GWASwithEMMAX_Step2: tPED file" name="SNP.tped" from_work_dir="SNP.tped" />

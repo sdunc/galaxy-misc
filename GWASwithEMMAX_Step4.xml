@@ -6,9 +6,10 @@
         emmax-intel64 -v -d 10 -t '$SNP' -p '$phenotype' -k '$SNPLD0.2.aBN.kinf' -c '$assignedPop' -o Phenoassoc
     ]]></command>
     <inputs>
-        <param type="data" name="SNP" format="tped" label="Genotype file containing the SNPs in tped format (output from the Step 2)" />
+      <!-- Cannot use format="tped", not a supported format -->
+        <param type="data" name="SNP" label="Genotype file containing the SNPs in tped format (output from the Step 2)" />
         <param type="data" name="phenotype" format="txt" label="Tab or space delimited text file containing the phenotypic values for each individual (one phenotype). The phenotype file has three entries at each line, FAMID, INDID, and phenotype values. Missing phenotype values should be represented as NA. The order of the individual IDs should conform to the .tfam files" />
-        <param type="data" name="SNPLD0.2.aBN.kinf" format="aBN.kinf" label="Kinship matrix (output from the Step 3)"/>
+        <param type="data" name="SNPLD0.2.aBN.kinf" label="Kinship matrix (output from the Step 3)"/>
         <param type="data" name="assignedPop" format="txt" label="Optional: Population structure. File format similar to the phenotype files, but allowing multiple columns ( > 3 ). Note that the intercept has to be included, meaning that the third column is recommended to be 1 always, and the covariates needs to be included from the fourth column. The order of the individual IDs should conform to the .tfam files, similar to the phenotype files."/>
     </inputs>
     <outputs>
