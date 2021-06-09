@@ -1,0 +1,39 @@
+<tool id="GWASwithEMMAX_Step4" name="GWAS with EMMAX. Step 4: Association mapping" version="0.1.0">
+    <requirements>
+        
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        emmax-intel64 -v -d 10 -t '$SNP' -p '$phenotype' -k '$SNPLD0.2.aBN.kinf' -c '$assignedPop' -o Phenoassoc
+    ]]></command>
+    <inputs>
+        <param type="data" name="SNP" format="tped" label="Genotype file containing the SNPs in tped format (output from the Step 2)" />
+        <param type="data" name="phenotype" format="txt" label="Tab or space delimited text file containing the phenotypic values for each individual (one phenotype). The phenotype file has three entries at each line, FAMID, INDID, and phenotype values. Missing phenotype values should be represented as NA. The order of the individual IDs should conform to the .tfam files" />
+        <param type="data" name="SNPLD0.2.aBN.kinf" format="aBN.kinf" label="Kinship matrix (output from the Step 3)"/>
+        <param type="data" name="assignedPop" format="txt" label="Optional: Population structure. File format similar to the phenotype files, but allowing multiple columns ( > 3 ). Note that the intercept has to be included, meaning that the third column is recommended to be 1 always, and the covariates needs to be included from the fourth column. The order of the individual IDs should conform to the .tfam files, similar to the phenotype files."/>
+    </inputs>
+    <outputs>
+        <data label="GWASwithEMMAX_Step4: Association mapping" name="Phenoassoc.ps" from_work_dir="Phenoassoc.ps" />
+        <data label="GWASwithEMMAX_Step4: Association mapping" name="Phenoassoc.reml" from_work_dir="Phenoassoc.reml" />
+    </outputs>
+    <help><![CDATA[
+       This GWAS pipeline performs association mapping using the EMMAX software, a mixed model accounting for the sample structure. In addition to the computational efficiency obtained by EMMA algorithm, EMMAX takes advantage of the fact that each loci explains only a small fraction of complex traits, which allows us to avoid repetitive variance component estimation procedure, resulting in a significant amount of increase in computational time of association mapping using mixed model.
+       EMMAX is a linear mixed model (LMM) to perform GWAS, correcting by a wide range of sample structures (which encompasses population stratification and hidden relatedness or kinship). To this end, it uses an internally calculated kinship matrix as a random effect, and population structure externally calculated as a fixed effect.
+       This is the fourth step of the workflow, which performs the association mapping in EMMAX. 
+       This tool requires a tped file as input file, containing the SNPs, as well as a text file containing the phenotypic data, a kinship matrix performed in the 3rd step to correct for kinship, and an optional text file containing population structure information to correct for population structure, which helps avoid spurious associations.
+
+       *EMMAX* program is used to perform this step.
+
+       
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githublink,
+  author = {Danecek, Petr et al},
+  year = {2011},
+  title = {The Variant Call Format and VCFtools},
+  publisher = {},
+  journal = {Bioinformatics},
+  url = {https://vcftools.github.io/license.html},
+}</citation>
+    </citations>
+</tool>

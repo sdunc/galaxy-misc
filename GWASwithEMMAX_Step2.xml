@@ -1,0 +1,36 @@
+<tool id="GWASwithEMMAX_Step2" name="GWAS with EMMAX. Step 2: SNP file from PED to tPED format" version="0.1.0">
+    <requirements>
+        <requirement type="package" version="1.90.beta.4.4">plink</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        plink --file '$SNP' --recode12 --output-missing-genotype 0 --transpose --out SNP
+    ]]></command>
+    <inputs>
+        <param type="data" name="SNP" label="Genotype file containing the SNPs in .ped format (output from the Step 1)" />
+    </inputs>
+    <outputs>
+        <data label="GWASwithEMMAX_Step2: tPED file" name="SNP.tped" from_work_dir="SNP.tped" />
+        <data label="GWASwithEMMAX_Step2: tFAM file" name="SNP.tfam" from_work_dir="SNP.tfam" />
+    </outputs>
+    <help><![CDATA[
+       This GWAS pipeline performs association mapping using the EMMAX software, a mixed model accounting for the sample structure. In addition to the computational efficiency obtained by EMMA algorithm, EMMAX takes advantage of the fact that each loci explains only a small fraction of complex traits, which allows us to avoid repetitive variance component estimation procedure, resulting in a significant amount of increase in computational time of association mapping using mixed model.
+       EMMAX is a linear mixed model (LMM) to perform GWAS, correcting by a wide range of sample structures (which encompasses population stratification and hidden relatedness). To this end, it uses an internally calculated kinship matrix as a random effect, and population structure externally calculated as a fixed effect.
+       This is the second step of the workflow, which transforms the SNP file from .ped format to a .tped format, suitable to be used in EMMAX.
+       This tool requires a .ped file as input file, containing the SNPs
+
+       *PLINK* program is used to perform this step.
+
+       
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githublink,
+  author = {Danecek, Petr et al},
+  year = {2011},
+  title = {The Variant Call Format and VCFtools},
+  publisher = {},
+  journal = {Bioinformatics},
+  url = {https://vcftools.github.io/license.html},
+}</citation>
+    </citations>
+</tool>

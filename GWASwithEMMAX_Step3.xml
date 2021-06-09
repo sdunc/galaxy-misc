@@ -1,0 +1,35 @@
+<tool id="GWASwithEMMAX_Step3" name="GWAS with EMMAX. Step 3: Kinship matrix" version="0.1.0">
+    <requirements>
+        
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        emmax-kin-intel64 -v -d 10 '$SNPLD02' > SNPLD0.2.aBN.kinf
+    ]]></command>
+    <inputs>
+        <param type="data" name="SNPLD02" format="tped" label="Genotype file containing the SNPs filtered by LD in tped format (output from the Step 2)" />
+    </inputs>
+    <outputs>
+        <data label="GWASwithEMMAX_Step3: Kinship matrix" name="SNPLD0.2.aBN.kinf" from_work_dir="SNPLD0.2.aBN.kinf" />
+    </outputs>
+    <help><![CDATA[
+       This GWAS pipeline performs association mapping using the EMMAX software, a mixed model accounting for the sample structure. In addition to the computational efficiency obtained by EMMA algorithm, EMMAX takes advantage of the fact that each loci explains only a small fraction of complex traits, which allows us to avoid repetitive variance component estimation procedure, resulting in a significant amount of increase in computational time of association mapping using mixed model.
+       EMMAX is a linear mixed model (LMM) to perform GWAS, correcting by a wide range of sample structures (which encompasses population stratification and hidden relatedness). To this end, it uses an internally calculated kinship matrix as a random effect, and population structure externally calculated as a fixed effect
+       This is the third step of the workflow, which calculates the kinkship matrix, needed to correct for kinship during the association mapping analysis.
+       This tool requires a tped file as input file, containing the SNPs
+
+       *EMMAX* program is used to perform this step.
+
+       
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githublink,
+  author = {Danecek, Petr et al},
+  year = {2011},
+  title = {The Variant Call Format and VCFtools},
+  publisher = {},
+  journal = {Bioinformatics},
+  url = {https://vcftools.github.io/license.html},
+}</citation>
+    </citations>
+</tool>

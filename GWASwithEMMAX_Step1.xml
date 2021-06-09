@@ -1,0 +1,38 @@
+<tool id="GWASwithEMMAX_Step1" name="GWAS with EMMAX. Step 1: SNP file from VCF to PED format" version="0.1.0">
+    <requirements>
+        <requirement type="package" version="0.1.16">vcftools</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        vcftools --gzvcf '$vcf_input' --plink --out SNP
+    ]]></command>
+    <inputs>
+        <param type="data" name="vcf_input" format="vcf" label="Genotype file containing the SNPs in vcf or vcf.gz format" />
+    </inputs>
+    <outputs>
+        <data label="GWASwithEMMAX_Step1: PED file" name="SNP.ped" from_work_dir="SNP.ped" />
+        <data label="GWASwithEMMAX_Step1: LOG file" name="SNP.log" from_work_dir="SNP.log" />
+        <data label="GWASwithEMMAX_Step1: MAP file" name="SNP.map" from_work_dir="SNP.map" />
+        <data label="GWASwithEMMAX_Step1: NOSEX file" name="SNP.nosex" from_work_dir="SNP.nosex" />
+    </outputs>
+    <help><![CDATA[
+       This GWAS pipeline performs association mapping using the EMMAX software, a mixed model accounting for the sample structure. In addition to the computational efficiency obtained by EMMA algorithm, EMMAX takes advantage of the fact that each loci explains only a small fraction of complex traits, which allows us to avoid repetitive variance component estimation procedure, resulting in a significant amount of increase in computational time of association mapping using mixed model.
+       EMMAX is a linear mixed model (LMM) to perform GWAS, correcting by a wide range of sample structures (which encompasses population stratification and hidden relatedness). To this end, it uses an internally calculated kinship matrix as a random effect, and population structure externally calculated as a fixed effect.
+       This is the first step of the workflow, which transforms the SNP file from vcf format to a .ped format, suitable to be used in EMMAX.
+       This tool requires a vcf.gz or vcf file as input file, containing the SNPs
+
+       *VCFtools* program is used to perform this step.
+
+       
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githublink,
+  author = {Danecek, Petr et al},
+  year = {2011},
+  title = {The Variant Call Format and VCFtools},
+  publisher = {},
+  journal = {Bioinformatics},
+  url = {https://vcftools.github.io/license.html},
+}</citation>
+    </citations>
+</tool>
